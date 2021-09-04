@@ -1,5 +1,5 @@
 # my-admin
 
-api: Express + Grapql
+api: Express + GraphQL
 
 client: React
