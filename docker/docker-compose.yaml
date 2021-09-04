@@ -1,0 +1,20 @@
+version: "3"
+services:
+  database:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=my_admin
+    ports:
+      - "3306:3306"
+    hostname: database
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: docker_phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+    restart: always
+    ports:
+      - 8081:80
+    external_links:
+      - docker_database_1:mysql
