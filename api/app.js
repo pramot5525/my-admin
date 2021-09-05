@@ -22,7 +22,6 @@ sequelize.authenticate().then(() => {
 var app = express();
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  rootValue: rootValue,
   graphiql: true,
 }));
 
