@@ -3,9 +3,9 @@ var express = require('express');
 // var path = require('path');
 // var cookieParser = require('cookie-parser');
 // var logger = require('morgan');
-
-
 const { Sequelize } = require('sequelize');
+var { graphqlHTTP } = require('express-graphql');
+const { schema, rootValue } = require('./schema');
 
 const sequelize = new Sequelize('my_admin', 'root', 'password', {
   host: 'localhost',
@@ -19,29 +19,12 @@ sequelize.authenticate().then(() => {
 })
 
 
-var { graphqlHTTP } = require('express-graphql');
-var { buildSchema } = require('graphql');
-var schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
-
-var root = {
-  hello: () => {
-    return 'Hello world!';
-  },
-};
-
-
 var app = express();
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  rootValue: root,
+  rootValue: rootValue,
   graphiql: true,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.listen(4000);
 
